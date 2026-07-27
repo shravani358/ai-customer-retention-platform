@@ -1,0 +1,27 @@
+services:
+
+  api:
+    build: ./backend/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - ./backend/app/.env
+    volumes:
+      - ./backend/app:/app
+    restart: unless-stopped
+
+  dashboard:
+    build: ./backend/app
+    ports:
+      - "8501:8501"
+    env_file:
+      - ./backend/app/.env
+    environment:
+      - API_URL=http://api:8000
+    command: >
+      streamlit run dashboard.py
+      --server.port=8501
+      --server.address=0.0.0.0
+    depends_on:
+      - api
+    restart: unless-stopped
