@@ -16,8 +16,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "It works! My retention platform is alive."}
-
+ return {"message": "AI Customer Retention Platform v1.0"}
 
 # ---------- Auth ----------
 
