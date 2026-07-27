@@ -8,8 +8,10 @@ from database import engine, get_db, Base
 import models, schemas, security, deps
 from ml.predict import predict_churn
 from services.ai import explain_churn, suggest_retention_strategy, chatbot_reply
+Base.metadata.create_all(bind=engine)  # creates tables first
 
-Base.metadata.create_all(bind=engine)
+from seed import seed
+seed()  # now tables exist, safe to insert
 
 app = FastAPI()
 
